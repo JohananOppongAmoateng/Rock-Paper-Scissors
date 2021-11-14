@@ -29,7 +29,7 @@ function playRound(player, computer) {
         if (computerSelection === 'rock') {
             return 'computer wins'
 
-        } else if (computerSelection === 'rock') {
+        } else if (computerSelection === 'paper') {
             return 'player wins'
         }
 
