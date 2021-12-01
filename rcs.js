@@ -1,63 +1,81 @@
 function computerPlay() {
-    const choices = ['scissors', 'paper', 'rock'];
-    return choices[Math.floor(Math.random() * choices.length)];
-
+    const choice = ["paper", "scissors", "rock"];
+    let computerchoice = choice[Math.floor(Math.random() * choice.length)];
+    console.log(computerchoice);
+    document.getElementById("computer_set").textContent = computerchoice;
+    return computerchoice
 }
 
-// console.log(computerPlay())
+let computerscore = 0;
+let playerscore = 0;
+let results = document.getElementById("roundwinner");
 
-function playRound(player, computer) {
 
-    if (player === 'rock') {
-        if (computer === 'paper') {
-            return 'computer wins'
-
-        } else if (computer === 'scissors') {
-            return 'player wins'
+function newRound(playerselection, computerselection) {
+    if (computerselection === playerselection) {
+        results.textContent = "Its a draw";
+        return "Its a draw";
+    } else if (computerselection === "paper") {
+        if (playerselection === "rock") {
+            results.textContent = "Computer is the winner";
+            computerscore += 1;
+            return "Computer is the winner";
+        } else if (playerselection === "scissors") {
+            results.textContent = "Player is the winner";
+            playerscore += 1
+            return "Player is the winner"
         }
-
-    } else if (player === 'paper') {
-        if (computer === 'scissors') {
-            return 'computer wins'
-
-        } else if (computer === 'rock') {
-            return 'player wins'
+    } else if (computerselection === "rock") {
+        if (playerselection === "scissors") {
+            results.textContent = "Computer is the winner";
+            computerscore += 1
+            return "Computer is the winner"
+        } else if (playerselection === "paper") {
+            results.textContent = "Player is the winner";
+            playerscore += 1
+            return "Player is the winner";
         }
-
-    } else if (player === 'scissors') {
-        if (computer === 'rock') {
-            return 'computer wins'
-
-        } else if (computer === 'paper') {
-            return 'player wins'
+    } else if (computerselection === "scissors") {
+        if (playerselection === "paper") {
+            results.textContent = "Computer is the winner";
+            computerscore += 1
+            return "Computer is the winner";
+        } else if (playerselection === "rock") {
+            results.textContent = "Player is the winner";
+            playerscore += 1;
+            return "Player is the winner";
         }
-
-    } else {
-        return 'It was a tie'
     }
 }
 
+function winner() {
 
-let comp_score = 0
-let player_score = 0
+    if (computerscore === 5) {
+        document.getElementById("display_winner").textContent = "Computer wins the game with a score of " + computerscore + ":" + playerscore;
+    } else if (playerscore === 5) {
 
-function game() {
-    let playerSelection = prompt('choose one: rock / paper / scissors');
-    let computerSelection = computerPlay()
-
-    let winner = playRound(playerSelection, computerSelection)
-    console.log(winner)
-
-    if (winner === 'computer wins') {
-        comp_score += 1;
-    } else if (winner === 'player wins') {
-        player_score += 1;
-    } else {
-        player_score += 0
-        comp_score += 0
+        document.getElementById("display_winner").textContent = "Player wins the game with a score of " + playerscore + ":" + computerscore;
     }
-
 }
-game(game(game(game(game()))))
 
-console.log("The score is " + comp_score + ':' + player_score)
+function rock() {
+    document.getElementById('playerchoice').textContent = "User clicked rock"
+    newRound("rock", computerPlay());
+    winner()
+}
+
+function scissors() {
+    document.getElementById('playerchoice').textContent = "User clicked scissors"
+    newRound("scissors", computerPlay());
+    winner()
+}
+
+function paper() {
+    document.getElementById('playerchoice').textContent = "User clicked paper"
+    newRound("paper", computerPlay());
+    winner()
+}
+//input from user
+document.getElementById('rock').addEventListener('click', rock);
+document.getElementById('scissors').addEventListener('click', scissors);
+document.getElementById('paper').addEventListener('click', paper);
